@@ -1,0 +1,44 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary</item>
+    </style>
+
+    <style name="Item" parent="">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Item.Small">
+        <item name="android:layout_width">@dimen/item_circle_size_small</item>
+        <item name="android:layout_height">@dimen/item_circle_size_small</item>
+        <item name="android:textSize">@dimen/item_font_size_small</item>
+    </style>
+
+    <style name="Item.Medium">
+        <item name="android:layout_width">@dimen/item_circle_size_medium</item>
+        <item name="android:layout_height">@dimen/item_circle_size_medium</item>
+        <item name="android:textSize">@dimen/item_font_size_medium</item>
+    </style>
+
+    <style name="Item.Large">
+        <item name="android:layout_width">@dimen/item_circle_size_large</item>
+        <item name="android:layout_height">@dimen/item_circle_size_large</item>
+        <item name="android:textSize">@dimen/item_font_size_large</item>
+    </style>
+
+    <style name="Item.Tumblr">
+        <item name="android:layout_width">@dimen/item_circle_size_tumblr</item>
+        <item name="android:layout_height">@dimen/item_circle_size_tumblr</item>
+        <item name="android:textSize">@dimen/item_font_size_tumblr</item>
+        <item name="android:textColor">@color/tumblr_primary</item>
+    </style>
+
+    <style name="Item.Path">
+        <item name="android:layout_width">@dimen/item_circle_size_path</item>
+        <item name="android:layout_height">@dimen/item_circle_size_path</item>
+        <item name="android:textSize">@dimen/item_font_size_path</item>
+        <item name="android:background">@drawable/path_white_oval</item>
+    </style>
+
+</resources>

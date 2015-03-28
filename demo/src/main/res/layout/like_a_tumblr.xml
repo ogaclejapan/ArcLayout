@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/note_advanced_tumblr"
+            android:textSize="20sp"
+            android:textColor="@color/tumblr_primary"/>
+
+    <com.ogaclejapan.arclayout.demo.widget.ClipRevealFrame
+            android:id="@+id/menu_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/tumblr_primary"
+            android:visibility="invisible">
+
+        <com.ogaclejapan.arclayout.ArcLayout
+                android:id="@id/arc_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:arc_origin="center"
+                app:arc_radius="@dimen/layout_radius_tumblr"
+                app:arc_axisRadius ="@dimen/layout_child_offset_tumblr"
+                >
+
+            <Button
+                    style="@style/Item.Tumblr"
+                    android:text="A"
+                    android:background="@drawable/tumblr_orange_oval"
+                    />
+
+            <Button
+                    style="@style/Item.Tumblr"
+                    android:text="B"
+                    android:background="@drawable/tumblr_green_oval"
+                    />
+
+            <Button
+                    style="@style/Item.Tumblr"
+                    android:text="C"
+                    android:background="@drawable/tumblr_white_oval"
+                    />
+
+            <Button
+                    style="@style/Item.Tumblr"
+                    android:text="D"
+                    android:background="@drawable/tumblr_grey_oval"
+                    />
+
+            <Button
+                    style="@style/Item.Tumblr"
+                    android:text="E"
+                    android:background="@drawable/tumblr_blue_oval"
+                    />
+
+        </com.ogaclejapan.arclayout.ArcLayout>
+
+        <Button
+                style="@style/Item.Tumblr"
+                android:id="@+id/center_item"
+                android:layout_gravity="center"
+                android:text="F"
+                android:background="@drawable/tumblr_red_oval"
+                />
+
+    </com.ogaclejapan.arclayout.demo.widget.ClipRevealFrame>
+
+    <Button
+            android:id="@+id/fab"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="24dp"
+            android:layout_marginRight="24dp"
+            android:text="+"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:background="@drawable/tumblr_menu_oval"
+            />
+
+</RelativeLayout>

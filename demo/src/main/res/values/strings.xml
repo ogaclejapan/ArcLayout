@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ArcLayout</string>
+    <string name="app_license">License</string>
+    <string name="app_github">GitHub</string>
+    <string name="app_github_url"><![CDATA[https://github.com/ogaclejapan/ArcLayout]]></string>
+
+    <string name="reverse">Reverse</string>
+
+    <string name="title_center">Center</string>
+    <string name="title_left">Left</string>
+    <string name="title_right">Right</string>
+    <string name="title_top">Top</string>
+    <string name="title_top_left">Top Left</string>
+    <string name="title_top_right">Top Right</string>
+    <string name="title_bottom">Bottom</string>
+    <string name="title_bottom_left">Bottom Left</string>
+    <string name="title_bottom_right">Bottom Right</string>
+    <string name="title_advanced_freeangle">Advanced: Free angle</string>
+    <string name="title_advanced_tumblr">Advanced: Like a Tumblr</string>
+    <string name="title_advanced_path">Advanced: Like a Path</string>
+
+    <string name="note_center"><![CDATA[app:arc_origin=&quot;<b>center</b>&quot;<br/>Full arc of from 270 degrees]]></string>
+    <string name="note_left"><![CDATA[app:arc_origin=&quot;<b>left</b>&quot;<br/>Semi arc of from 270 degrees]]></string>
+    <string name="note_right"><![CDATA[app:arc_origin=&quot;<b>right</b>&quot;<br/>Semi arc of from 90 degrees]]></string>
+    <string name="note_top"><![CDATA[app:arc_origin=&quot;<b>top</b>&quot;<br/>Semi arc of from 0 degrees]]></string>
+    <string name="note_top_left"><![CDATA[app:arc_origin=&quot;<b>top|left</b>&quot;<br/>Quarter arc of from 0 degrees]]></string>
+    <string name="note_top_right"><![CDATA[app:arc_origin=&quot;<b>top|right</b>&quot;<br/>Quarter arc of from 90 degrees]]></string>
+    <string name="note_bottom"><![CDATA[app:arc_origin=&quot;<b>bottom</b>&quot;<br/>Semi arc of from 180 degrees]]></string>
+    <string name="note_bottom_left"><![CDATA[app:arc_origin=&quot;<b>bottom|left</b>&quot;<br/>Quarter arc of from 270 degrees]]></string>
+    <string name="note_bottom_right"><![CDATA[app:arc_origin=&quot;<b>bottom|right</b>&quot;<br/>Quarter arc of from 180 degrees]]></string>
+    <string name="note_advanced_freeangle"><![CDATA[app:arc_freeAngle=&quot;<b>true</b>&quot;<br/>Can be free angle to place the child view]]></string>
+    <string name="note_advanced_tumblr">Try pressing the button</string>
+    <string name="note_advanced_path">Try pressing the button</string>
+
+</resources>

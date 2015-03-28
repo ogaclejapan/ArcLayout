@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#3c515c</color>
+    <color name="white">#FFFFFF</color>
+    <color name="scrim">#42000000</color>
+    <color name="pressed">#33000000</color>
+
+    <color name="light_blue_500">#03A9F4</color>
+    <color name="cyan_500">#00BCD4</color>
+    <color name="teal_500">#009688</color>
+    <color name="green_500">#4CAF50</color>
+    <color name="light_green_500">#8BC34A</color>
+
+    <color name="tumblr_primary">#36465D</color>
+    <color name="tumblr_orange">#F2992E</color>
+    <color name="tumblr_green">#56BC8A</color>
+    <color name="tumblr_white">#FFFFFF</color>
+    <color name="tumblr_grey">#748089</color>
+    <color name="tumblr_blue">#4AA8D8</color>
+    <color name="tumblr_red">#D95E40</color>
+
+    <color name="path_primary">#E62F17</color>
+    <color name="path_orange">#FF9500</color>
+    <color name="path_blue">#1774E6</color>
+    <color name="path_black">#403B36</color>
+    <color name="path_green">#5FB336</color>
+    <color name="path_purple">#49098A</color>
+
+</resources>

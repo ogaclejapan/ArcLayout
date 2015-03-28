@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/note_advanced_path"
+            android:textSize="20sp"
+            android:textColor="@color/path_primary"/>
+
+    <FrameLayout
+            android:id="@+id/menu_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/scrim"
+            android:visibility="invisible"
+            >
+
+        <com.ogaclejapan.arclayout.ArcLayout
+                android:id="@id/arc_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="32dp"
+                app:arc_origin="bottom"
+                app:arc_radius="@dimen/layout_radius_path"
+                app:arc_axisRadius="@dimen/layout_child_offset_path"
+                app:arc_freeAngle="true"
+                >
+
+            <Button
+                    style="@style/Item.Path"
+                    android:text="A"
+                    android:textColor="@color/path_orange"
+                    app:arc_angle="30"
+                    />
+
+            <Button
+                    style="@style/Item.Path"
+                    android:text="B"
+                    android:textColor="@color/path_blue"
+                    app:arc_angle="60"
+                    />
+
+            <Button
+                    style="@style/Item.Path"
+                    android:text="C"
+                    android:textColor="@color/path_black"
+                    app:arc_angle="90"
+                    />
+
+            <Button
+                    style="@style/Item.Path"
+                    android:text="D"
+                    android:textColor="@color/path_green"
+                    app:arc_angle="120"
+                    />
+
+            <Button
+                    style="@style/Item.Path"
+                    android:text="E"
+                    android:textColor="@color/path_purple"
+                    app:arc_angle="150"
+                    />
+
+        </com.ogaclejapan.arclayout.ArcLayout>
+
+    </FrameLayout>
+
+    <Button
+            android:id="@+id/fab"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:text="+"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:background="@drawable/path_fab"
+            />
+
+</RelativeLayout>

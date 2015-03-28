@@ -1,0 +1,64 @@
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <com.ogaclejapan.arclayout.ArcLayout
+            android:id="@id/arc_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:arc_origin="center"
+            app:arc_color="@color/scrim"
+            app:arc_radius="@dimen/layout_radius_small"
+            app:arc_axisRadius="@dimen/layout_child_offset_small"
+            app:arc_freeAngle="true"
+            >
+
+        <Button
+                style="@style/Item.Large"
+                android:text="A"
+                android:background="@drawable/light_blue_oval_selector"
+                app:arc_angle="-45"
+                />
+
+        <Button
+                style="@style/Item.Large"
+                android:text="B"
+                android:background="@drawable/cyan_oval_selector"
+                app:arc_angle="-15"
+                />
+
+        <Button
+                style="@style/Item.Large"
+                android:text="C"
+                android:background="@drawable/teal_oval_selector"
+                app:arc_angle="15"
+                />
+
+        <Button
+                style="@style/Item.Large"
+                android:text="D"
+                android:background="@drawable/green_oval_selector"
+                app:arc_angle="45"
+                />
+
+        <Button
+                style="@style/Item.Large"
+                android:text="E"
+                android:background="@drawable/light_green_oval_selector"
+                app:arc_angle="180"
+                />
+
+    </com.ogaclejapan.arclayout.ArcLayout>
+
+    <TextView
+            android:id="@id/note_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textSize="16sp"
+            />
+
+</FrameLayout>
