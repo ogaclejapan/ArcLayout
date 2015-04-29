@@ -86,10 +86,6 @@ public class ArcLayout extends ViewGroup {
     protected void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         setWillNotDraw(false);
 
-        if (isInEditMode()) {
-            return;
-        }
-
         final TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.arc_ArcLayout, defStyleAttr, defStyleRes);
         int origin = a.getInt(R.styleable.arc_ArcLayout_arc_origin, DEFAULT_ORIGIN);
@@ -133,9 +129,14 @@ public class ArcLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        if (isInEditMode()) {
+            return;
+        }
+
         if (Utils.DEBUG) {
             Utils.d(TAG, "onLayout: l=%d, t=%d, r=%d, b=%d", l, t, r, b);
         }
+
         mArcDrawable.setBounds(0, 0, r - l, b - t);
 
         final Point o = mArc.computeOrigin(0, 0, mSize.x, mSize.y);
@@ -174,6 +175,10 @@ public class ArcLayout extends ViewGroup {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if (isInEditMode()) {
+            return;
+        }
+
         super.onDraw(canvas);
         mArcDrawable.draw(canvas);
     }
