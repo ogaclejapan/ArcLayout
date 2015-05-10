@@ -1,7 +1,5 @@
 package com.ogaclejapan.arclayout.demo;
 
-import com.ogaclejapan.arclayout.ArcLayout;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,97 +15,98 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ogaclejapan.arclayout.ArcLayout;
+
 public class DemoActivity extends ActionBarActivity implements View.OnClickListener {
 
-    private static final String KEY_DEMO = "demo";
+  private static final String KEY_DEMO = "demo";
+  Toast mToast = null;
+  ArcLayout mArcLayout;
 
-    public static void startActivity(Context context, Demo demo) {
-        Intent intent = new Intent(context, DemoActivity.class);
-        intent.putExtra(KEY_DEMO, demo.name());
-        context.startActivity(intent);
+  public static void startActivity(Context context, Demo demo) {
+    Intent intent = new Intent(context, DemoActivity.class);
+    intent.putExtra(KEY_DEMO, demo.name());
+    context.startActivity(intent);
+  }
+
+  private static Demo getDemo(Intent intent) {
+    return Demo.valueOf(intent.getStringExtra(KEY_DEMO));
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    Demo demo = getDemo(getIntent());
+
+    setContentView(demo.layoutResId);
+    mArcLayout = (ArcLayout) findViewById(R.id.arc_layout);
+    mArcLayout.setArc(demo.arc);
+
+    for (int i = 0, size = mArcLayout.getChildCount(); i < size; i++) {
+      mArcLayout.getChildAt(i).setOnClickListener(this);
     }
 
-    private static Demo getDemo(Intent intent) {
-        return Demo.valueOf(intent.getStringExtra(KEY_DEMO));
+    TextView note = (TextView) findViewById(R.id.note_text);
+    note.setText(Html.fromHtml(getString(demo.noteResId)));
+    FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) note.getLayoutParams();
+    switch (demo.arc) {
+      case TOP:
+      case TOP_LEFT:
+      case TOP_RIGHT:
+        lp.gravity = Gravity.BOTTOM;
+        break;
+      case BOTTOM:
+      case BOTTOM_LEFT:
+      case BOTTOM_RIGHT:
+        lp.gravity = Gravity.TOP;
+        break;
+      default:
+        lp.gravity = Gravity.TOP;
     }
 
-    Toast mToast = null;
-    ArcLayout mArcLayout;
+    ActionBar bar = getSupportActionBar();
+    bar.setTitle(demo.titleResId);
+    bar.setDisplayHomeAsUpEnabled(true);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  }
 
-        Demo demo = getDemo(getIntent());
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_demo, menu);
+    return super.onCreateOptionsMenu(menu);
+  }
 
-        setContentView(demo.layoutResId);
-        mArcLayout = (ArcLayout) findViewById(R.id.arc_layout);
-        mArcLayout.setArc(demo.arc);
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        finish();
+        break;
+      case R.id.menu_reverse:
+        mArcLayout.setReverseAngle(!mArcLayout.isReverseAngle());
+        break;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
+    return true;
+  }
 
-        for (int i = 0, size = mArcLayout.getChildCount(); i < size; i++) {
-            mArcLayout.getChildAt(i).setOnClickListener(this);
-        }
+  @Override
+  public void onClick(View v) {
+    if (v instanceof Button) {
+      showToast((Button) v);
+    }
+  }
 
-        TextView note = (TextView) findViewById(R.id.note_text);
-        note.setText(Html.fromHtml(getString(demo.noteResId)));
-        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams)note.getLayoutParams();
-        switch (demo.arc) {
-            case TOP:
-            case TOP_LEFT:
-            case TOP_RIGHT:
-                lp.gravity = Gravity.BOTTOM;
-                break;
-            case BOTTOM:
-            case BOTTOM_LEFT:
-            case BOTTOM_RIGHT:
-                lp.gravity = Gravity.TOP;
-                break;
-            default:
-                lp.gravity = Gravity.TOP;
-        }
-
-        ActionBar bar = getSupportActionBar();
-        bar.setTitle(demo.titleResId);
-        bar.setDisplayHomeAsUpEnabled(true);
-
+  private void showToast(Button btn) {
+    if (mToast != null) {
+      mToast.cancel();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_demo, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+    String text = "Clicked: " + btn.getText();
+    mToast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+    mToast.show();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            case R.id.menu_reverse:
-                mArcLayout.setReverseAngle(!mArcLayout.isReverseAngle());
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v instanceof Button) {
-            showToast((Button) v);
-        }
-    }
-
-    private void showToast(Button btn) {
-        if (mToast != null) {
-            mToast.cancel();
-        }
-
-        String text = "Clicked: " + btn.getText();
-        mToast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-        mToast.show();
-
-    }
+  }
 }

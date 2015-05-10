@@ -1,7 +1,5 @@
 package com.ogaclejapan.arclayout.demo;
 
-import com.ogaclejapan.arclayout.ArcLayout;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -18,173 +16,174 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.ogaclejapan.arclayout.ArcLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class DemoLikePathActivity extends ActionBarActivity implements View.OnClickListener {
 
-    private static final String KEY_DEMO = "demo";
+  private static final String KEY_DEMO = "demo";
+  Toast mToast = null;
+  View mFab;
+  View mMenuLayout;
+  ArcLayout mArcLayout;
 
-    public static void startActivity(Context context, Demo demo) {
-        Intent intent = new Intent(context, DemoLikePathActivity.class);
-        intent.putExtra(KEY_DEMO, demo.name());
-        context.startActivity(intent);
+  public static void startActivity(Context context, Demo demo) {
+    Intent intent = new Intent(context, DemoLikePathActivity.class);
+    intent.putExtra(KEY_DEMO, demo.name());
+    context.startActivity(intent);
+  }
+
+  private static Demo getDemo(Intent intent) {
+    return Demo.valueOf(intent.getStringExtra(KEY_DEMO));
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.like_a_path);
+
+    Demo demo = getDemo(getIntent());
+
+    ActionBar bar = getSupportActionBar();
+    bar.setTitle(demo.titleResId);
+    bar.setDisplayHomeAsUpEnabled(true);
+
+    mFab = findViewById(R.id.fab);
+    mMenuLayout = findViewById(R.id.menu_layout);
+    mArcLayout = (ArcLayout) findViewById(R.id.arc_layout);
+
+    for (int i = 0, size = mArcLayout.getChildCount(); i < size; i++) {
+      mArcLayout.getChildAt(i).setOnClickListener(this);
     }
 
-    private static Demo getDemo(Intent intent) {
-        return Demo.valueOf(intent.getStringExtra(KEY_DEMO));
+    mFab.setOnClickListener(this);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == android.R.id.home) {
+      finish();
+      return true;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public void onClick(View v) {
+    if (v.getId() == R.id.fab) {
+      onFabClick(v);
+      return;
     }
 
-    Toast mToast = null;
-    View mFab;
-    View mMenuLayout;
-    ArcLayout mArcLayout;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.like_a_path);
-
-        Demo demo = getDemo(getIntent());
-
-        ActionBar bar = getSupportActionBar();
-        bar.setTitle(demo.titleResId);
-        bar.setDisplayHomeAsUpEnabled(true);
-
-        mFab = findViewById(R.id.fab);
-        mMenuLayout = findViewById(R.id.menu_layout);
-        mArcLayout = (ArcLayout) findViewById(R.id.arc_layout);
-
-        for (int i = 0, size = mArcLayout.getChildCount(); i < size; i++) {
-            mArcLayout.getChildAt(i).setOnClickListener(this);
-        }
-
-        mFab.setOnClickListener(this);
+    if (v instanceof Button) {
+      showToast((Button) v);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+  }
+
+  private void showToast(Button btn) {
+    if (mToast != null) {
+      mToast.cancel();
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.fab) {
-            onFabClick(v);
-            return;
-        }
+    String text = "Clicked: " + btn.getText();
+    mToast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+    mToast.show();
 
-        if (v instanceof Button) {
-            showToast((Button) v);
-        }
+  }
 
+  private void onFabClick(View v) {
+    if (v.isSelected()) {
+      hideMenu();
+    } else {
+      showMenu();
+    }
+    v.setSelected(!v.isSelected());
+  }
+
+  @SuppressWarnings("NewApi")
+  private void showMenu() {
+    mMenuLayout.setVisibility(View.VISIBLE);
+
+    List<Animator> animList = new ArrayList<>();
+
+    for (int i = 0, len = mArcLayout.getChildCount(); i < len; i++) {
+      animList.add(createShowItemAnimator(mArcLayout.getChildAt(i)));
     }
 
-    private void showToast(Button btn) {
-        if (mToast != null) {
-            mToast.cancel();
-        }
+    AnimatorSet animSet = new AnimatorSet();
+    animSet.setDuration(400);
+    animSet.setInterpolator(new OvershootInterpolator());
+    animSet.playTogether(animList);
+    animSet.start();
+  }
 
-        String text = "Clicked: " + btn.getText();
-        mToast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-        mToast.show();
+  @SuppressWarnings("NewApi")
+  private void hideMenu() {
 
+    List<Animator> animList = new ArrayList<>();
+
+    for (int i = mArcLayout.getChildCount() - 1; i >= 0; i--) {
+      animList.add(createHideItemAnimator(mArcLayout.getChildAt(i)));
     }
 
-    private void onFabClick(View v) {
-        if (v.isSelected()) {
-            hideMenu();
-        } else {
-            showMenu();
-        }
-        v.setSelected(!v.isSelected());
-    }
+    AnimatorSet animSet = new AnimatorSet();
+    animSet.setDuration(400);
+    animSet.setInterpolator(new AnticipateInterpolator());
+    animSet.playTogether(animList);
+    animSet.addListener(new AnimatorListenerAdapter() {
+      @Override
+      public void onAnimationEnd(Animator animation) {
+        super.onAnimationEnd(animation);
+        mMenuLayout.setVisibility(View.INVISIBLE);
+      }
+    });
+    animSet.start();
 
-    @SuppressWarnings("NewApi")
-    private void showMenu() {
-        mMenuLayout.setVisibility(View.VISIBLE);
+  }
 
-        List<Animator> animList = new ArrayList<>();
+  private Animator createShowItemAnimator(View item) {
 
-        for (int i = 0, len = mArcLayout.getChildCount(); i < len; i++) {
-            animList.add(createShowItemAnimator(mArcLayout.getChildAt(i)));
-        }
+    float dx = mFab.getX() - item.getX();
+    float dy = mFab.getY() - item.getY();
 
-        AnimatorSet animSet = new AnimatorSet();
-        animSet.setDuration(400);
-        animSet.setInterpolator(new OvershootInterpolator());
-        animSet.playTogether(animList);
-        animSet.start();
-    }
+    item.setRotation(0f);
+    item.setTranslationX(dx);
+    item.setTranslationY(dy);
 
-    @SuppressWarnings("NewApi")
-    private void hideMenu() {
+    Animator anim = ObjectAnimator.ofPropertyValuesHolder(
+        item,
+        AnimatorUtils.rotation(0f, 720f),
+        AnimatorUtils.translationX(dx, 0f),
+        AnimatorUtils.translationY(dy, 0f)
+    );
 
-        List<Animator> animList = new ArrayList<>();
+    return anim;
+  }
 
-        for (int i = mArcLayout.getChildCount() - 1; i >= 0; i--) {
-            animList.add(createHideItemAnimator(mArcLayout.getChildAt(i)));
-        }
+  private Animator createHideItemAnimator(final View item) {
+    float dx = mFab.getX() - item.getX();
+    float dy = mFab.getY() - item.getY();
 
-        AnimatorSet animSet = new AnimatorSet();
-        animSet.setDuration(400);
-        animSet.setInterpolator(new AnticipateInterpolator());
-        animSet.playTogether(animList);
-        animSet.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                mMenuLayout.setVisibility(View.INVISIBLE);
-            }
-        });
-        animSet.start();
+    Animator anim = ObjectAnimator.ofPropertyValuesHolder(
+        item,
+        AnimatorUtils.rotation(720f, 0f),
+        AnimatorUtils.translationX(0f, dx),
+        AnimatorUtils.translationY(0f, dy)
+    );
 
-    }
+    anim.addListener(new AnimatorListenerAdapter() {
+      @Override
+      public void onAnimationEnd(Animator animation) {
+        super.onAnimationEnd(animation);
+        item.setTranslationX(0f);
+        item.setTranslationY(0f);
+      }
+    });
 
-    private Animator createShowItemAnimator(View item) {
-
-        float dx = mFab.getX() - item.getX();
-        float dy = mFab.getY() - item.getY();
-
-        item.setRotation(0f);
-        item.setTranslationX(dx);
-        item.setTranslationY(dy);
-
-        Animator anim = ObjectAnimator.ofPropertyValuesHolder(
-                item,
-                AnimatorUtils.rotation(0f, 720f),
-                AnimatorUtils.translationX(dx, 0f),
-                AnimatorUtils.translationY(dy, 0f)
-        );
-
-        return anim;
-    }
-
-    private Animator createHideItemAnimator(final View item) {
-        float dx = mFab.getX() - item.getX();
-        float dy = mFab.getY() - item.getY();
-
-        Animator anim = ObjectAnimator.ofPropertyValuesHolder(
-                item,
-                AnimatorUtils.rotation(720f, 0f),
-                AnimatorUtils.translationX(0f, dx),
-                AnimatorUtils.translationY(0f, dy)
-        );
-
-        anim.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                item.setTranslationX(0f);
-                item.setTranslationY(0f);
-            }
-        });
-
-        return anim;
-    }
+    return anim;
+  }
 
 }
