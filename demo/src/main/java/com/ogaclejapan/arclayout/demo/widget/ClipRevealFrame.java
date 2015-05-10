@@ -12,11 +12,11 @@ import android.widget.FrameLayout;
  */
 public class ClipRevealFrame extends FrameLayout {
 
-  boolean mClipOutlines;
-  float mCenterX;
-  float mCenterY;
-  float mRadius;
-  private Path mRevealPath;
+  boolean clipOutlines;
+  float centerX;
+  float centerY;
+  float radius;
+  private Path revealPath;
 
   public ClipRevealFrame(Context context) {
     super(context);
@@ -34,34 +34,34 @@ public class ClipRevealFrame extends FrameLayout {
   }
 
   private void init() {
-    mRevealPath = new Path();
-    mClipOutlines = false;
+    revealPath = new Path();
+    clipOutlines = false;
   }
 
   public void setClipOutLines(boolean shouldClip) {
-    mClipOutlines = shouldClip;
+    clipOutlines = shouldClip;
   }
 
   public void setClipCenter(final int x, final int y) {
-    mCenterX = x;
-    mCenterY = y;
+    centerX = x;
+    centerY = y;
   }
 
   public void setClipRadius(final float radius) {
-    mRadius = radius;
+    this.radius = radius;
     invalidate();
   }
 
   @Override
   public void draw(Canvas canvas) {
-    if (!mClipOutlines) {
+    if (!clipOutlines) {
       super.draw(canvas);
       return;
     }
     final int state = canvas.save();
-    mRevealPath.reset();
-    mRevealPath.addCircle(mCenterX, mCenterY, mRadius, Path.Direction.CW);
-    canvas.clipPath(mRevealPath);
+    revealPath.reset();
+    revealPath.addCircle(centerX, centerY, radius, Path.Direction.CW);
+    canvas.clipPath(revealPath);
     super.draw(canvas);
     canvas.restoreToCount(state);
   }

@@ -27,11 +27,11 @@ import java.util.List;
 public class DemoLikeTumblrActivity extends ActionBarActivity implements View.OnClickListener {
 
   private static final String KEY_DEMO = "demo";
-  Toast mToast = null;
-  View mRootLayout;
-  ClipRevealFrame mMenuLayout;
-  ArcLayout mArcLayout;
-  View mCenterItem;
+  Toast toast = null;
+  View rootLayout;
+  ClipRevealFrame menuLayout;
+  ArcLayout arcLayout;
+  View centerItem;
 
   public static void startActivity(Context context, Demo demo) {
     Intent intent = new Intent(context, DemoLikeTumblrActivity.class);
@@ -54,14 +54,14 @@ public class DemoLikeTumblrActivity extends ActionBarActivity implements View.On
     bar.setTitle(demo.titleResId);
     bar.setDisplayHomeAsUpEnabled(true);
 
-    mRootLayout = findViewById(R.id.root_layout);
-    mMenuLayout = (ClipRevealFrame) findViewById(R.id.menu_layout);
-    mArcLayout = (ArcLayout) findViewById(R.id.arc_layout);
-    mCenterItem = findViewById(R.id.center_item);
+    rootLayout = findViewById(R.id.root_layout);
+    menuLayout = (ClipRevealFrame) findViewById(R.id.menu_layout);
+    arcLayout = (ArcLayout) findViewById(R.id.arc_layout);
+    centerItem = findViewById(R.id.center_item);
 
-    mCenterItem.setOnClickListener(this);
-    for (int i = 0, size = mArcLayout.getChildCount(); i < size; i++) {
-      mArcLayout.getChildAt(i).setOnClickListener(this);
+    centerItem.setOnClickListener(this);
+    for (int i = 0, size = arcLayout.getChildCount(); i < size; i++) {
+      arcLayout.getChildAt(i).setOnClickListener(this);
     }
 
     findViewById(R.id.fab).setOnClickListener(this);
@@ -91,13 +91,13 @@ public class DemoLikeTumblrActivity extends ActionBarActivity implements View.On
   }
 
   private void showToast(Button btn) {
-    if (mToast != null) {
-      mToast.cancel();
+    if (toast != null) {
+      toast.cancel();
     }
 
     String text = "Clicked: " + btn.getText();
-    mToast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-    mToast.show();
+    toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+    toast.show();
 
   }
 
@@ -106,8 +106,8 @@ public class DemoLikeTumblrActivity extends ActionBarActivity implements View.On
     int y = (v.getTop() + v.getBottom()) / 2;
     float radiusOfFab = 1f * v.getWidth() / 2f;
     float radiusFromFabToRoot = (float) Math.hypot(
-        Math.max(x, mRootLayout.getWidth() - x),
-        Math.max(y, mRootLayout.getHeight() - y));
+        Math.max(x, rootLayout.getWidth() - x),
+        Math.max(y, rootLayout.getHeight() - y));
 
     if (v.isSelected()) {
       hideMenu(x, y, radiusFromFabToRoot, radiusOfFab);
@@ -118,19 +118,19 @@ public class DemoLikeTumblrActivity extends ActionBarActivity implements View.On
   }
 
   private void showMenu(int cx, int cy, float startRadius, float endRadius) {
-    mMenuLayout.setVisibility(View.VISIBLE);
+    menuLayout.setVisibility(View.VISIBLE);
 
     List<Animator> animList = new ArrayList<>();
 
-    Animator revealAnim = createCircularReveal(mMenuLayout, cx, cy, startRadius, endRadius);
+    Animator revealAnim = createCircularReveal(menuLayout, cx, cy, startRadius, endRadius);
     revealAnim.setInterpolator(new AccelerateDecelerateInterpolator());
     revealAnim.setDuration(200);
 
     animList.add(revealAnim);
-    animList.add(createShowItemAnimator(mCenterItem));
+    animList.add(createShowItemAnimator(centerItem));
 
-    for (int i = 0, len = mArcLayout.getChildCount(); i < len; i++) {
-      animList.add(createShowItemAnimator(mArcLayout.getChildAt(i)));
+    for (int i = 0, len = arcLayout.getChildCount(); i < len; i++) {
+      animList.add(createShowItemAnimator(arcLayout.getChildAt(i)));
     }
 
     AnimatorSet animSet = new AnimatorSet();
@@ -141,20 +141,20 @@ public class DemoLikeTumblrActivity extends ActionBarActivity implements View.On
   private void hideMenu(int cx, int cy, float startRadius, float endRadius) {
     List<Animator> animList = new ArrayList<>();
 
-    for (int i = mArcLayout.getChildCount() - 1; i >= 0; i--) {
-      animList.add(createHideItemAnimator(mArcLayout.getChildAt(i)));
+    for (int i = arcLayout.getChildCount() - 1; i >= 0; i--) {
+      animList.add(createHideItemAnimator(arcLayout.getChildAt(i)));
     }
 
-    animList.add(createHideItemAnimator(mCenterItem));
+    animList.add(createHideItemAnimator(centerItem));
 
-    Animator revealAnim = createCircularReveal(mMenuLayout, cx, cy, startRadius, endRadius);
+    Animator revealAnim = createCircularReveal(menuLayout, cx, cy, startRadius, endRadius);
     revealAnim.setInterpolator(new AccelerateDecelerateInterpolator());
     revealAnim.setDuration(200);
     revealAnim.addListener(new AnimatorListenerAdapter() {
       @Override
       public void onAnimationEnd(Animator animation) {
         super.onAnimationEnd(animation);
-        mMenuLayout.setVisibility(View.INVISIBLE);
+        menuLayout.setVisibility(View.INVISIBLE);
       }
     });
 
@@ -167,8 +167,8 @@ public class DemoLikeTumblrActivity extends ActionBarActivity implements View.On
   }
 
   private Animator createShowItemAnimator(View item) {
-    float dx = mCenterItem.getX() - item.getX();
-    float dy = mCenterItem.getY() - item.getY();
+    float dx = centerItem.getX() - item.getX();
+    float dy = centerItem.getY() - item.getY();
 
     item.setScaleX(0f);
     item.setScaleY(0f);
@@ -189,8 +189,8 @@ public class DemoLikeTumblrActivity extends ActionBarActivity implements View.On
   }
 
   private Animator createHideItemAnimator(final View item) {
-    final float dx = mCenterItem.getX() - item.getX();
-    final float dy = mCenterItem.getY() - item.getY();
+    final float dx = centerItem.getX() - item.getX();
+    final float dy = centerItem.getY() - item.getY();
 
     Animator anim = ObjectAnimator.ofPropertyValuesHolder(
         item,

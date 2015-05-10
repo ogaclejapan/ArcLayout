@@ -19,8 +19,8 @@ import com.ogaclejapan.arclayout.ArcLayout;
 public class DemoFreeAngleActivity extends ActionBarActivity implements View.OnClickListener {
 
   private static final String KEY_DEMO = "demo";
-  Toast mToast = null;
-  ArcLayout mArcLayout;
+  Toast toast = null;
+  ArcLayout arcLayout;
 
   public static void startActivity(Context context, Demo demo) {
     Intent intent = new Intent(context, DemoFreeAngleActivity.class);
@@ -39,11 +39,11 @@ public class DemoFreeAngleActivity extends ActionBarActivity implements View.OnC
     Demo demo = getDemo(getIntent());
 
     setContentView(demo.layoutResId);
-    mArcLayout = (ArcLayout) findViewById(R.id.arc_layout);
-    mArcLayout.setArc(demo.arc);
+    arcLayout = (ArcLayout) findViewById(R.id.arc_layout);
+    arcLayout.setArc(demo.arc);
 
-    for (int i = 0, size = mArcLayout.getChildCount(); i < size; i++) {
-      mArcLayout.getChildAt(i).setOnClickListener(this);
+    for (int i = 0, size = arcLayout.getChildCount(); i < size; i++) {
+      arcLayout.getChildAt(i).setOnClickListener(this);
     }
 
     TextView note = (TextView) findViewById(R.id.note_text);
@@ -90,13 +90,13 @@ public class DemoFreeAngleActivity extends ActionBarActivity implements View.OnC
   }
 
   private void showToast(Button btn) {
-    if (mToast != null) {
-      mToast.cancel();
+    if (toast != null) {
+      toast.cancel();
     }
 
     String text = "Clicked: " + btn.getText();
-    mToast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-    mToast.show();
+    toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+    toast.show();
 
   }
 }

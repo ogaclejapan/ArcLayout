@@ -24,10 +24,10 @@ import java.util.List;
 public class DemoLikePathActivity extends ActionBarActivity implements View.OnClickListener {
 
   private static final String KEY_DEMO = "demo";
-  Toast mToast = null;
-  View mFab;
-  View mMenuLayout;
-  ArcLayout mArcLayout;
+  Toast toast = null;
+  View fab;
+  View menuLayout;
+  ArcLayout arcLayout;
 
   public static void startActivity(Context context, Demo demo) {
     Intent intent = new Intent(context, DemoLikePathActivity.class);
@@ -50,15 +50,15 @@ public class DemoLikePathActivity extends ActionBarActivity implements View.OnCl
     bar.setTitle(demo.titleResId);
     bar.setDisplayHomeAsUpEnabled(true);
 
-    mFab = findViewById(R.id.fab);
-    mMenuLayout = findViewById(R.id.menu_layout);
-    mArcLayout = (ArcLayout) findViewById(R.id.arc_layout);
+    fab = findViewById(R.id.fab);
+    menuLayout = findViewById(R.id.menu_layout);
+    arcLayout = (ArcLayout) findViewById(R.id.arc_layout);
 
-    for (int i = 0, size = mArcLayout.getChildCount(); i < size; i++) {
-      mArcLayout.getChildAt(i).setOnClickListener(this);
+    for (int i = 0, size = arcLayout.getChildCount(); i < size; i++) {
+      arcLayout.getChildAt(i).setOnClickListener(this);
     }
 
-    mFab.setOnClickListener(this);
+    fab.setOnClickListener(this);
   }
 
   @Override
@@ -84,13 +84,13 @@ public class DemoLikePathActivity extends ActionBarActivity implements View.OnCl
   }
 
   private void showToast(Button btn) {
-    if (mToast != null) {
-      mToast.cancel();
+    if (toast != null) {
+      toast.cancel();
     }
 
     String text = "Clicked: " + btn.getText();
-    mToast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-    mToast.show();
+    toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+    toast.show();
 
   }
 
@@ -105,12 +105,12 @@ public class DemoLikePathActivity extends ActionBarActivity implements View.OnCl
 
   @SuppressWarnings("NewApi")
   private void showMenu() {
-    mMenuLayout.setVisibility(View.VISIBLE);
+    menuLayout.setVisibility(View.VISIBLE);
 
     List<Animator> animList = new ArrayList<>();
 
-    for (int i = 0, len = mArcLayout.getChildCount(); i < len; i++) {
-      animList.add(createShowItemAnimator(mArcLayout.getChildAt(i)));
+    for (int i = 0, len = arcLayout.getChildCount(); i < len; i++) {
+      animList.add(createShowItemAnimator(arcLayout.getChildAt(i)));
     }
 
     AnimatorSet animSet = new AnimatorSet();
@@ -125,8 +125,8 @@ public class DemoLikePathActivity extends ActionBarActivity implements View.OnCl
 
     List<Animator> animList = new ArrayList<>();
 
-    for (int i = mArcLayout.getChildCount() - 1; i >= 0; i--) {
-      animList.add(createHideItemAnimator(mArcLayout.getChildAt(i)));
+    for (int i = arcLayout.getChildCount() - 1; i >= 0; i--) {
+      animList.add(createHideItemAnimator(arcLayout.getChildAt(i)));
     }
 
     AnimatorSet animSet = new AnimatorSet();
@@ -137,7 +137,7 @@ public class DemoLikePathActivity extends ActionBarActivity implements View.OnCl
       @Override
       public void onAnimationEnd(Animator animation) {
         super.onAnimationEnd(animation);
-        mMenuLayout.setVisibility(View.INVISIBLE);
+        menuLayout.setVisibility(View.INVISIBLE);
       }
     });
     animSet.start();
@@ -146,8 +146,8 @@ public class DemoLikePathActivity extends ActionBarActivity implements View.OnCl
 
   private Animator createShowItemAnimator(View item) {
 
-    float dx = mFab.getX() - item.getX();
-    float dy = mFab.getY() - item.getY();
+    float dx = fab.getX() - item.getX();
+    float dy = fab.getY() - item.getY();
 
     item.setRotation(0f);
     item.setTranslationX(dx);
@@ -164,8 +164,8 @@ public class DemoLikePathActivity extends ActionBarActivity implements View.OnCl
   }
 
   private Animator createHideItemAnimator(final View item) {
-    float dx = mFab.getX() - item.getX();
-    float dy = mFab.getY() - item.getY();
+    float dx = fab.getX() - item.getX();
+    float dy = fab.getY() - item.getY();
 
     Animator anim = ObjectAnimator.ofPropertyValuesHolder(
         item,
