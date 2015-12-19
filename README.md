@@ -102,6 +102,7 @@ There are several attributes you can set:
 # Apps Using ArcLayout
 
 * [Qiitanium][qiitanium]
+* [Call Control Free][callcontrolfree_app] : [GIF][callcontrolfree_gif]
 
 
 # LICENSE
@@ -133,3 +134,7 @@ limitations under the License.
 [android_arsenal_badge_link]: http://android-arsenal.com/details/1/1689
 [attrs_overview]: https://raw.githubusercontent.com/ogaclejapan/ArcLayout/master/art/attrs.png
 [qiitanium]: https://github.com/ogaclejapan/Qiitanium
+[callcontrolfree_app]: https://play.google.com/store/apps/details?id=club.androidy.callcontrolfree
+[callcontrolfree_gif]: https://raw.githubusercontent.com/ogaclejapan/ArcLayout/master/art/callcontrolfree.gif
+
+
