@@ -102,7 +102,9 @@ There are several attributes you can set:
 # Apps Using ArcLayout
 
 * [Qiitanium][qiitanium]
-* [Call Control Free][callcontrolfree_app] : [GIF][callcontrolfree_gif]
+* [Call Control Free][callcontrolfree_app]
+
+![GIF][callcontrolfree_gif]
 
 
 # LICENSE
