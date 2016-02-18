@@ -129,7 +129,7 @@ limitations under the License.
 [demo2_gif]: https://raw.githubusercontent.com/ogaclejapan/ArcLayout/master/art/demo2.gif
 [demo_app]: https://play.google.com/store/apps/details?id=com.ogaclejapan.arclayout.demo
 [demo_icon]: https://raw.githubusercontent.com/ogaclejapan/ArcLayout/master/art/icon.png
-[googleplay_store_badge]: https://developer.android.com/images/brand/en_generic_rgb_wo_60.png
+[googleplay_store_badge]: http://www.android.com/images/brand/get_it_on_play_logo_large.png
 [maven_central_badge_svg]: https://maven-badges.herokuapp.com/maven-central/com.ogaclejapan.arclayout/library/badge.svg?style=flat
 [maven_central_badge_app]: https://maven-badges.herokuapp.com/maven-central/com.ogaclejapan.arclayout/library
 [android_arsenal_badge_svg]: https://img.shields.io/badge/Android%20Arsenal-ArcLayout-brightgreen.svg?style=flat
