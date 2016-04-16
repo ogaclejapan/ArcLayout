@@ -18,6 +18,9 @@ package com.ogaclejapan.arclayout;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.RectF;
+import android.os.Build;
+
+import static android.os.Build.VERSION_CODES.LOLLIPOP;
 
 public enum Arc {
 
@@ -234,7 +237,6 @@ public enum Arc {
     return ((float) sweepAngle) / size;
   }
 
-  @SuppressWarnings("NewApi")
   public Path computePath(int radius, int l, int t, int r, int b) {
     final Point o = computeOrigin(l, t, r, b);
     final int ol = o.x - radius;
@@ -260,7 +262,7 @@ public enum Arc {
       default:
         throw new UnsupportedOperationException();
     }
-    if (Utils.LOLLIPOP_OR_LATER) {
+    if (Build.VERSION.SDK_INT >= LOLLIPOP) {
       path.arcTo(ol, ot, or, ob, startAngle, sweepAngle, true);
     } else {
       path.arcTo(new RectF(ol, ot, or, ob), startAngle, sweepAngle, true);

@@ -28,6 +28,8 @@ import android.view.ViewGroup;
 
 import java.util.WeakHashMap;
 
+import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
+
 public class ArcLayout extends ViewGroup {
 
   private static final String TAG = "ArcLayout";
@@ -67,7 +69,6 @@ public class ArcLayout extends ViewGroup {
     init(context, attrs, defStyleAttr, defStyleRes);
   }
 
-  @SuppressWarnings("NewApi")
   protected void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     setWillNotDraw(false);
 
@@ -87,7 +88,7 @@ public class ArcLayout extends ViewGroup {
         R.styleable.arc_ArcLayout_arc_reverseAngle, DEFAULT_REVERSE_ANGLE);
     a.recycle();
 
-    if (Utils.JELLY_BEAN_MR1_OR_LATER) {
+    if (Build.VERSION.SDK_INT >= JELLY_BEAN_MR1) {
       arcOrigin = ArcOrigin.getAbsoluteOrigin(arcOrigin, getLayoutDirection());
     }
 
@@ -250,7 +251,6 @@ public class ArcLayout extends ViewGroup {
     return childCount;
   }
 
-  @SuppressWarnings("NewApi")
   protected void childMeasureBy(View child, int x, int y) {
     if (Utils.DEBUG) {
       Utils.d(TAG, "childMeasureBy: x=%d, y=%d", x, y);
@@ -258,7 +258,7 @@ public class ArcLayout extends ViewGroup {
 
     final LayoutParams lp = (LayoutParams) child.getLayoutParams();
     int origin = lp.origin;
-    if (Utils.JELLY_BEAN_MR1_OR_LATER) {
+    if (Build.VERSION.SDK_INT >= JELLY_BEAN_MR1) {
       origin = ArcOrigin.getAbsoluteOrigin(origin, getLayoutDirection());
     }
 
@@ -303,7 +303,6 @@ public class ArcLayout extends ViewGroup {
 
   }
 
-  @SuppressWarnings("NewApi")
   protected void childLayoutBy(View child, int x, int y) {
     if (Utils.DEBUG) {
       Utils.d(TAG, "childLayoutBy: x=%d, y=%d", x, y);
@@ -311,7 +310,7 @@ public class ArcLayout extends ViewGroup {
 
     final LayoutParams lp = (LayoutParams) child.getLayoutParams();
     int origin = lp.origin;
-    if (Utils.JELLY_BEAN_MR1_OR_LATER) {
+    if (Build.VERSION.SDK_INT >= JELLY_BEAN_MR1) {
       origin = ArcOrigin.getAbsoluteOrigin(origin, getLayoutDirection());
     }
 
