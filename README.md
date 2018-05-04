@@ -19,7 +19,7 @@ Add the dependency to your build.gradle.
 
 ```
 dependencies {
-    compile 'com.ogaclejapan.arclayout:library:1.1.0@aar'
+    implementation 'com.ogaclejapan.arclayout:library:1.1.0@aar'
 }
 ```
 
